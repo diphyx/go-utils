@@ -1,0 +1,14 @@
+# build artifacts
+/bin/
+
+# temporary files
+/tmp/
+
+# third-party dependencies
+/vendor/
+
+# sensitive data
+*.env
+
+# macOS system files
+.DS_Store

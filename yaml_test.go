@@ -31,6 +31,22 @@ var (
 			},
 		},
 		{
+			input:  "PLACEHOLDER:\n    default: placeholder\n    required: true\n---\nname: {{ PLACEHOLDER }}",
+			output: "name: value",
+			variables: map[string]string{
+				"PLACEHOLDER": "value",
+			},
+			template: &YamlTemplate{
+				Content: "name: {{ PLACEHOLDER }}",
+				Metadata: map[string]YamlTemplateMetadata{
+					"PLACEHOLDER": {
+						Default:  "placeholder",
+						Required: true,
+					},
+				},
+			},
+		},
+		{
 			input:     "name: {{ PLACEHOLDER }}",
 			output:    "name: {{ PLACEHOLDER }}",
 			variables: map[string]string{},

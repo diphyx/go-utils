@@ -35,23 +35,23 @@ import (
 )
 
 func main() {
-    encryption, err := utils.NewEncryption("ABCDEFGHIJKLMNOPQRSTUVWX12345678", "1234567890123456")
-    if err != nil {
-        fmt.Println("Error creating encryption:", err)
+    encryption, encryptionError := utils.NewEncryption("ABCDEFGHIJKLMNOPQRSTUVWX12345678", "1234567890123456")
+    if encryptionError != nil {
+        fmt.Println("Error creating encryption:", encryptionError)
 
         return
     }
 
-    encoded, err := encryption.Encode("Sample")
-    if err != nil {
-        fmt.Println("Error encoding:", err)
+    encoded, encodeError := encryption.Encode("Sample")
+    if encodeError != nil {
+        fmt.Println("Error encoding:", encodeError)
 
         return
     }
 
-    decoded, err := encryption.Decode(encoded)
-    if err != nil {
-        fmt.Println("Error decoding:", err)
+    decoded, decodeError := encryption.Decode(encoded)
+    if decodeError != nil {
+        fmt.Println("Error decoding:", decodeError)
 
         return
     }
@@ -59,16 +59,16 @@ func main() {
     fmt.Println("Encoded:", encoded)
     fmt.Println("Decoded:", decoded)
 
-    encrypted, err := encryption.Encrypt("Sample")
-    if err != nil {
-        fmt.Println("Error encrypting:", err)
+    encrypted, encryptError := encryption.Encrypt("Sample")
+    if encryptError != nil {
+        fmt.Println("Error encrypting:", encryptError)
 
         return
     }
 
-    decrypted, err := encryption.Decrypt(encrypted)
-    if err != nil {
-        fmt.Println("Error decrypting:", err)
+    decrypted, decryptError := encryption.Decrypt(encrypted)
+    if decryptError != nil {
+        fmt.Println("Error decrypting:", decryptError)
 
         return
     }
@@ -94,18 +94,18 @@ import (
 
 func main() {
     ip := "192.168.0.1"
-    number, err := utils.IpToNumber(ip)
-    if err != nil {
-        fmt.Println("Error converting IP to number:", err)
+    number, convertToNumberError := utils.IpToNumber(ip)
+    if convertToNumberError != nil {
+        fmt.Println("Error converting IP to number:", convertToNumberError)
 
         return
     }
 
     fmt.Println("IP to Number:", number)
 
-    ip, err = utils.NumberToIp(number)
-    if err != nil {
-        fmt.Println("Error converting number to IP:", err)
+    ip, convertToIpError = utils.NumberToIp(number)
+    if convertToIpError != nil {
+        fmt.Println("Error converting number to IP:", convertToIpError)
 
         return
     }
@@ -129,14 +129,53 @@ import (
 )
 
 func main() {
-    secret, err := utils.NewSecret("prefix_")
-    if err != nil {
-        fmt.Println("Error generating secret:", err)
+    secret, secretError := utils.NewSecret("prefix_")
+    if secretError != nil {
+        fmt.Println("Error generating secret:", secretError)
 
         return
     }
 
     fmt.Println("Generated Secret:", secret)
+}
+```
+
+### YAML Template Rendering
+
+The `RenderYamlTemplate` function renders a YAML template with the given variables.
+
+#### Example
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/diphyx/go-utils"
+)
+
+func main() {
+    template := "PLACEHOLDER:\n    default: placeholder\n    required: true\n---\nname: {{ PLACEHOLDER }}"
+
+    _, parseError := utils.ParseYamlTemplate(template)
+    if parseError != nil {
+        fmt.Println("Error parsing YAML template:", parseError)
+
+        return
+    }
+
+    variables := map[string]string{
+   		"PLACEHOLDER": "placeholder",
+    }
+
+    rendered, renderError := utils.RenderYamlTemplate(template, variables)
+    if renderError != nil {
+        fmt.Println("Error rendering YAML template:", renderError)
+
+        return
+    }
+
+    fmt.Println("Rendered YAML Template:", rendered)
 }
 ```
 

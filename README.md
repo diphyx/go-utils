@@ -165,7 +165,7 @@ func main() {
     }
 
     variables := map[string]string{
-   		"PLACEHOLDER": "placeholder",
+        "PLACEHOLDER": "placeholder",
     }
 
     rendered, renderError := utils.RenderYamlTemplate(template, variables)

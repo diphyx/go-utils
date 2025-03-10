@@ -11,21 +11,36 @@ type ipTestCase struct {
 
 var (
 	validIpTestCases = []ipTestCase{
-		{"192.168.0.1", 3232235521},
-		{"0.0.0.0", 0},
-		{"255.255.255.255", 4294967295},
+		{
+			ip:     "192.168.0.1",
+			number: 3232235521,
+		},
+		{
+			ip:     "0.0.0.0",
+			number: 0,
+		},
+		{
+			ip:     "255.255.255.255",
+			number: 4294967295,
+		},
 	}
 	invalidIpTestCases = []ipTestCase{
-		{"invalid_ip", -1},
-		{"::1", 4294967296},
+		{
+			ip:     "invalid_ip",
+			number: -1,
+		},
+		{
+			ip:     "::1",
+			number: 4294967296,
+		},
 	}
 )
 
 func TestIpToNumber(test *testing.T) {
 	for _, testCase := range validIpTestCases {
-		output, err := IpToNumber(testCase.ip)
-		if err != nil {
-			test.Fatalf("failed to convert ip to number: %v", err)
+		output, convertError := IpToNumber(testCase.ip)
+		if convertError != nil {
+			test.Fatalf("failed to convert ip to number: %v", convertError)
 		}
 
 		if output != testCase.number {
@@ -34,8 +49,8 @@ func TestIpToNumber(test *testing.T) {
 	}
 
 	for _, testCase := range invalidIpTestCases {
-		_, err := IpToNumber(testCase.ip)
-		if err == nil {
+		_, convertError := IpToNumber(testCase.ip)
+		if convertError == nil {
 			test.Errorf("expected error for invalid ip, got nil")
 		}
 	}
@@ -43,9 +58,9 @@ func TestIpToNumber(test *testing.T) {
 
 func TestNumberToIp(test *testing.T) {
 	for _, testCase := range validIpTestCases {
-		output, err := NumberToIp(testCase.number)
-		if err != nil {
-			test.Fatalf("failed to convert number to ip: %v", err)
+		output, convertError := NumberToIp(testCase.number)
+		if convertError != nil {
+			test.Fatalf("failed to convert number to ip: %v", convertError)
 		}
 
 		if output != testCase.ip {
@@ -54,8 +69,8 @@ func TestNumberToIp(test *testing.T) {
 	}
 
 	for _, testCase := range invalidIpTestCases {
-		_, err := NumberToIp(testCase.number)
-		if err == nil {
+		_, convertError := NumberToIp(testCase.number)
+		if convertError == nil {
 			test.Fatalf("expected error for invalid number, got nil")
 		}
 	}

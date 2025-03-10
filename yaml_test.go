@@ -15,7 +15,7 @@ type yamlTemplateTestCase struct {
 var (
 	validParseYamlTemplateCases = []yamlTemplateTestCase{
 		{
-			input:  "PLACEHOLDER:\n    default: placeholder\n    required: true\n---\nname: {{ PLACEHOLDER }}",
+			input:  "PLACEHOLDER:\n    default: placeholder\n    required: true\n#---\nname: {{ PLACEHOLDER }}",
 			output: "name: placeholder",
 			variables: map[string]string{
 				"PLACEHOLDER": "placeholder",

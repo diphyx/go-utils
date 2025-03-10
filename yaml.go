@@ -19,7 +19,7 @@ type (
 )
 
 var (
-	yamlTemplateSeparatorPattern = regexp.MustCompile(`(?m)^[-]{3,}$`)
+	yamlTemplateSeparatorPattern = regexp.MustCompile(`(?m)^[#]?[-]{3,}$`)
 )
 
 // ParseYamlTemplate parses a YAML template string into a YamlTemplate struct.

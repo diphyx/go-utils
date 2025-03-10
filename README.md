@@ -155,7 +155,7 @@ import (
 )
 
 func main() {
-    template := "PLACEHOLDER:\n    default: placeholder\n    required: true\n---\nname: {{ PLACEHOLDER }}"
+    template := "PLACEHOLDER:\n    default: placeholder\n    required: true\n#---\nname: {{ PLACEHOLDER }}"
 
     _, parseError := utils.ParseYamlTemplate(template)
     if parseError != nil {
